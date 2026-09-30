@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penilaian Produk & Informasi - Klevara Nafa</title>
+  <style>
+    :root {
+      --primary-color: #3e6b48;
+      --accent-color: #d4a373;
+      --bg-color: #f4f7f4;
+      --card-bg: #ffffff;
+      --text-color: #2d3748;
+      --border-color: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border: 1px solid var(--border-color);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #eaf2eb;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: var(--primary-color);
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .header .subtitle {
+      color: #64748b;
+      font-style: italic;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #475569;
+    }
+
+    /* Section Titles */
+    .section-title {
+      color: var(--primary-color);
+      font-size: 18px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 10px;
+    }
+
+    /* Info Grid & List */
+    .info-section {
+      margin-bottom: 20px;
+    }
+
+    .ingredients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .ingredient-tag {
+      background-color: #eaf2eb;
+      color: var(--primary-color);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    /* Nutrition Table */
+    .nutrition-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .nutrition-table th, .nutrition-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .nutrition-table th {
+      background-color: #eaf2eb;
+      color: var(--primary-color);
+    }
+
+    /* Cooking Steps */
+    .step-list {
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .step-list li {
+      margin-bottom: 8px;
+    }
+
+    /* Alert Box */
+    .alert-box {
+      background-color: #fff8e6;
+      border: 1px solid #ffe0b2;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .alert-box strong {
+      color: #b7791f;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--primary-color);
+    }
+
+    /* Star Rating */
+    .rating-group {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+
+    .rating-group input {
+      display: none;
+    }
+
+    .rating-group label {
+      font-size: 28px;
+      color: #cbd5e1;
+      cursor: pointer;
+      margin-bottom: 0;
+      transition: color 0.2s;
+    }
+
+    .rating-group input:checked ~ label,
+    .rating-group label:hover,
+    .rating-group label:hover ~ label {
+      color: #f59e0b;
+    }
+
+    .radio-options {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    .radio-options label {
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #2f5237;
+    }
+
+    #pesan-status {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+
+    <!-- KARTU INFORMASI PRODUK -->
+    <div class="card">
+      <div class="header">
+        <h1>Klepon Kunafa (Klevara Nafa)</h1>
+        <p class="subtitle">Perpaduan Tradisional dan Modern — Rasa Tradisional, Dengan Sentuhan Modern</p>
+      </div>
+
+      <!-- Komposisi -->
+      <div class="info-section">
+        <h2 class="section-title">Komposisi</h2>
+        <div class="ingredients-list">
+          <span class="ingredient-tag">Tepung Ketan</span>
+          <span class="ingredient-tag">Tepung Beras</span>
+          <span class="ingredient-tag">Air</span>
+          <span class="ingredient-tag">Pasta Pandan</span>
+          <span class="ingredient-tag">Kunafa (Kataifi)</span>
+          <span class="ingredient-tag">Keju</span>
+          <span class="ingredient-tag">Gula</span>
+          <span class="ingredient-tag">Mentega</span>
+          <span class="ingredient-tag">Selai Cokelat & Red Velvet</span>
+        </div>
+      </div>
+
+      <!-- Nilai Gizi -->
+      <div class="info-section">
+        <h2 class="section-title">Nilai Gizi (per 100 gram produk)</h2>
+        <table class="nutrition-table">
+          <thead>
+            <tr>
+              <th>Zat Gizi</th>
+              <th>Persentase (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Karbohidrat</td><td>58%</td></tr>
+            <tr><td>Lemak</td><td>22%</td></tr>
+            <tr><td>Protein</td><td>8%</td></tr>
+            <tr><td>Gula</td><td>10%</td></tr>
+            <tr><td>Serat</td><td>2%</td></tr>
+            <tr><td>Kalsium (Ca)</td><td>3%</td></tr>
+            <tr><td>Zat Besi (Fe)</td><td>2%</td></tr>
+            <tr><td>Natrium (Na)</td><td>1%</td></tr>
+            <tr><td>Vitamin A</td><td>5%</td></tr>
+            <tr><td>Vitamin C</td><td>1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Teknik Memasak -->
+      <div class="info-section">
+        <h2 class="section-title">Teknik Memasak</h2>
+        <ol class="step-list">
+          <li><strong>Merebus (boiling):</strong> Adonan klepon yang sudah dibentuk dan diisi selai cokelat direbus dalam air mendidih hingga mengapung dan matang.</li>
+          <li><strong>Menumis/sangrai (sautéing):</strong> Topping kunafa dimasak dengan sedikit mentega hingga berwarna keemasan dan renyah.</li>
+          <li><strong>Mendinginkan (cooling):</strong> Klepon yang telah matang ditiriskan dan didinginkan sebelum diberi topping.</li>
+          <li><strong>Plating/finishing:</strong> Selai red velvet ditambahkan di bagian atas klepon, kemudian diberi sedikit kunafa sebagai topping.</li>
+        </ol>
+      </div>
+
+      <!-- Alergen & Masa Penyimpanan -->
+      <div class="alert-box">
+        <p><strong>⚠️ Informasi Alergen:</strong> Mengandung susu/olahannya (keju & mentega), gluten (kunafa/kataifi), dan potensi alergen dari selai.</p>
+        <p><strong>⏳ Masa Penyimpanan:</strong> Maksimal <strong>1 Hari (24 jam)</strong> pada suhu ruang untuk menjaga kerenyahan dan kualitas rasa.</p>
+      </div>
+    </div>
+
+    <!-- KARTU FORM PENILAIAN -->
+    <div class="card">
+      <h2 class="section-title">Form Penilaian Responden</h2>
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">Silakan berikan penilaianmu setelah mencoba produk Klevara Nafa:</p>
+
+      <form id="formPenilaian">
+        <div class="form-group">
+          <label for="nama">Nama (Boleh Diisi / Anonim):</label>
+          <input type="text" id="nama" name="Nama" placeholder="Contoh: Budi">
+        </div>
+
+        <div class="form-group">
+          <label>Rasa & Tekstur Klevara Nafa:</label>
+          <div class="rating-group">
+            <input type="radio" id="star5-rasa" name="Rating_Rasa" value="5" required><label for="star5-rasa">★</label>
+            <input type="radio" id="star4-rasa" name="Rating_Rasa" value="4"><label for="star4-rasa">★</label>
+            <input type="radio" id="star3-rasa" name="Rating_Rasa" value="3"><label for="star3-rasa">★</label>
+            <input type="radio" id="star2-rasa" name="Rating_Rasa" value="2"><label for="star2-rasa">★</label>
+            <input type="radio" id="star1-rasa" name="Rating_Rasa" value="1"><label for="star1-rasa">★</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tampilan & Kemasan Produk:</label>
+          <div class="rating-group">
+            <input type="radio" id="star5-kemasan" name="Rating_Kemasan" value="5" required><label for="star5-kemasan">★</label>
+            <input type="radio" id="star4-kemasan" name="Rating_Kemasan" value="4"><label for="star4-kemasan">★</label>
+            <input type="radio" id="star3-kemasan" name="Rating_Kemasan" value="3"><label for="star3-kemasan">★</label>
+            <input type="radio" id="star2-kemasan" name="Rating_Kemasan" value="2"><label for="star2-kemasan">★</label>
+            <input type="radio" id="star1-kemasan" name="Rating_Kemasan" value="1"><label for="star1-kemasan">★</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Apakah kamu akan merekomendasikan produk ini?</label>
+          <div class="radio-options">
+            <label><input type="radio" name="Rekomendasi" value="Ya" required> Ya</label>
+            <label><input type="radio" name="Rekomendasi" value="Mungkin"> Mungkin</label>
+            <label><input type="radio" name="Rekomendasi" value="Tidak"> Tidak</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="saran">Saran & Masukan:</label>
+          <textarea id="saran" name="Saran" rows="4" placeholder="Tulis masukanmu di sini..."></textarea>
+        </div>
+
+        <button type="submit" id="btnKirim">Kirim Penilaian</button>
+        <div id="pesan-status"></div>
+      </form>
+    </div>
+
+  </div>
+
+  <script>
+    // GANTI URL DI BAWAH INI DENGAN WEB APP URL GOOGLE APPS SCRIPT MILIKMU
+    const scriptURL = 'SCRIPT_URL_GOOGLE_APPS_SCRIPT';
+    
+    const form = document.getElementById('formPenilaian');
+    const btnKirim = document.getElementById('btnKirim');
+    const pesanStatus = document.getElementById('pesan-status');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      btnKirim.disabled = true;
+      btnKirim.innerText = 'Mengirim...';
+      pesanStatus.innerText = '';
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          pesanStatus.style.color = '#3e6b48';
+          pesanStatus.innerText = 'Terima kasih! Penilaian berhasil dikirim.';
+          btnKirim.disabled = false;
+          btnKirim.innerText = 'Kirim Penilaian';
+          form.reset();
+        })
+        .catch(error => {
+          pesanStatus.style.color = '#dc2626';
+          pesanStatus.innerText = 'Terjadi kesalahan saat mengirim data.';
+          btnKirim.disabled = false;
+          btnKirim.innerText = 'Kirim Penilaian';
+        });
+    });
+  </script>
+
+</body>
+</html>
